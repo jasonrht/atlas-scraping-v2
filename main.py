@@ -2,6 +2,7 @@ import pandas as pd
 import backstage
 import google_client as gc
 import datetime as dt
+import send_mail as sm
 
 def new_index(df):
     tobs = df.loc[:,"TOB"].values
@@ -113,6 +114,7 @@ def main():
     print(loondienst_data)
     print('\n')
 
+    sm.send_m('jtsangsolutions@gmail.com')
 
 if __name__ == '__main__':
     main()

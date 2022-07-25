@@ -193,7 +193,6 @@ class backstage:
         self.data.sort_values(by=columns, ascending=False, inplace=True)
         new_indices = self.new_index()
         self.data.insert(0, '', new_indices)
-        # self.data.set_index(pd.Index(new_indices), inplace=True)
     
     def run(self, wervers):
         MONTH = '07'
