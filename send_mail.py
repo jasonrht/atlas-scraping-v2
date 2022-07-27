@@ -55,4 +55,4 @@ def send_multiple(receiver_emails):
 #     print(e)
 #     print("Email NOT sent successfully at: ", date.today().strftime("%d %B %Y"))
 
-send_m('jtsangsolutions@gmail.com')
+# send_m('jtsangsolutions@gmail.com')

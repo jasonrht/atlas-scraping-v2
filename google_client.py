@@ -18,10 +18,11 @@ class google_client:
             print(e)
             print('ERROR: Failed to initialize google client instance ...')
 
-    def get_sheet(self, wks):
+
+    def get_sheet(self, wks, filename):
         try:
             print('Opening worksheet ...')
-            self.sheet = self.client.open('LeaderboardsAtlas').worksheet(wks)
+            self.sheet = self.client.open(filename).worksheet(wks)
             print('Opened worksheet successfully!')
         except Exception as e:
             print(e)
@@ -67,9 +68,7 @@ if __name__ == '__main__':
     '''
         Testing
     '''
-    # client = google_client()
-    # client.get_sheet('RTM namenlijst')
-    # df = pd.DataFrame({'col1': [0,1,2,3,4,5,6], 'col2': [6,5,4,3,2,1,0]})
-    # client.to_spreadsheet(df, 'F3')
+    client = google_client()
+    client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
+    print(client.get_names(4))
 
-    print(dt.datetime.today().year)

@@ -79,10 +79,12 @@ class backstage:
         data_page = bs(content, "html.parser")
         df = pd.read_html(content)
         data_werver = df[1]
-        data_werver.rename(columns={"Unnamed: 0": "col1","Unnamed: 2":"column_three"},inplace=True)
-        project_col = data_werver["Project"] 
-
         trs = data_page.find_all("table")[1].find_all("tr")[1:-3] # correctie voor laatste rijen
+        if list(df[1].columns).count('Project') == 0:
+            data_werver = df[2]
+            trs = data_page.find_all("table")[2].find_all("tr")[1:-3] # correctie voor laatste rijen
+        data_werver.rename(columns={"Unnamed: 0": "col1","Unnamed: 2":"column_three"},inplace=True)
+
         sal_periode = data_werver["Na uitval deze periode"]
         eenmalig_col = data_werver["Eenmalig"]
         project_col = data_werver["Project"] 
@@ -221,24 +223,13 @@ if __name__ == '__main__':
         Testing
     '''
     spreadsheet_client = gc.google_client()
-    spreadsheet_client.get_sheet('RTM namenlijst')
-    all_wervers = spreadsheet_client.get_names()
-    name_dict = spreadsheet_client.get_name_status()
+    spreadsheet_client.get_sheet('RTM namenlijst', 'LeaderboardsAtlas')
+    all_wervers = spreadsheet_client.get_names(1)
 
     algemeen_backstage = backstage('algemeen')
     algemeen_backstage.run(all_wervers)
     algemeen_backstage.sort_data(['TOB'])
     algemeen_data = algemeen_backstage.data
-    print(algemeen_data)
-
-    svhk_backstage = backstage('svhk')
-    svhk_wervers = []
-    for werver in all_wervers:
-        if name_dict[werver] != 'LD':
-            svhk_wervers.append(werver)
-    svhk_backstage.run(svhk_wervers)
-    svhk_backstage.sort_data(['TOB'])
-    svhk_data = svhk_backstage.data
-    print(svhk_data)
-
-    loondienst_backstage = backstage('algemeen')
+    algemeen_data.set_index(algemeen_data.iloc[:,0],inplace=True)
+    algemeen_data.drop(algemeen_data.columns[[0]], axis=1, inplace=True)
+    algemeen_data.to_csv('data.csv')
