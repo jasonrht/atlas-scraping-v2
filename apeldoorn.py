@@ -1,6 +1,8 @@
 import backstage
 import google_client as gc
 import datetime as dt
+import pandas_to_html as pd2html
+import send_mail as sm
 
 def main():
     try:
@@ -23,7 +25,13 @@ def main():
         apeldoorn_backstage.run(wervers)
         apeldoorn_backstage.sort_data(['TOB'])
         apeldoorn_data = apeldoorn_backstage.data
-        lb_client.to_spreadsheet(apeldoorn_data, 'B4')
+        apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
+        # lb_client.to_spreadsheet(apeldoorn_data, 'B4')
+
+        # HTML -> PNG -> EMAIL
+        pd2html.main('apeldoorn_data')
+        sm.send_m('jtsangsolutions@gmail.com', 'apeldoorn_data.png')
+
         print(apeldoorn_data)
         print('\n')
     except Exception as e:

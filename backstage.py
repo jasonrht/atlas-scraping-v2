@@ -137,7 +137,7 @@ class backstage:
 
         # gemiddeld opgehaald 
         if werkdagen>0:
-            gob = tob/float(werkdagen)
+            gob = tob/float(werkdagen*factor)
         else:
             gob = 0
 
@@ -149,7 +149,7 @@ class backstage:
         if netto_don == 0:
             gib = 0 
         else:
-            gib = tob/float(netto_don)
+            gib = tob/float(netto_don*factor)
 
         variables = {
             "Naam": self.get_name(werver, wervers),
@@ -195,6 +195,8 @@ class backstage:
         self.data.sort_values(by=columns, ascending=False, inplace=True)
         new_indices = self.new_index()
         self.data.insert(0, '', new_indices)
+        self.data.set_index(self.data.iloc[:,0],inplace=True)
+        self.data.drop(self.data.columns[[0]], axis=1, inplace=True)
     
     def run(self, wervers):
         MONTH = '07'
@@ -232,4 +234,4 @@ if __name__ == '__main__':
     algemeen_data = algemeen_backstage.data
     algemeen_data.set_index(algemeen_data.iloc[:,0],inplace=True)
     algemeen_data.drop(algemeen_data.columns[[0]], axis=1, inplace=True)
-    algemeen_data.to_csv('data.csv')
+    # algemeen_data.to_csv('data.csv')

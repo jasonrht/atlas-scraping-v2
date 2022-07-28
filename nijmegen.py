@@ -1,6 +1,8 @@
 import backstage
 import google_client as gc
 import datetime as dt
+import pandas_to_html as pd2html
+import send_mail as sm
 
 def main():
     try:
@@ -23,7 +25,12 @@ def main():
         nijmegen_backstage.run(wervers)
         nijmegen_backstage.sort_data(['TOB'])
         nijmegen_data = nijmegen_backstage.data
-        lb_client.to_spreadsheet(nijmegen_data, 'B4')
+        nijmegen_data.to_csv('./CSVs/nijmegen_data.csv')
+        # lb_client.to_spreadsheet(nijmegen_data, 'B4')
+
+        # HTML -> PNG -> EMAIL
+        pd2html.main('nijmegen_data')
+        sm.send_m('jtsangsolutions@gmail.com', 'nijmegen_data.png')
         print(nijmegen_data)
         print('\n')
     except Exception as e:

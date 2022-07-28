@@ -1,0 +1,88 @@
+
+    <html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html {
+            font-family: 'Lato', sans-serif;
+        }
+
+        table {
+            border: solid 2px black;
+            border-collapse: collapse;
+            color: black;
+            width: 1000px;
+        }
+
+        tr {
+            border-bottom: solid 2px black;
+        }
+
+        th,
+        td {
+            padding: 5px 10px;
+            text-align: center;
+            max-height: 30px;
+            border-right: solid 2px black;
+        }
+
+        tr th:nth-child(1) {
+            border-right: 2px solid black;
+        }
+
+        tr td:nth-child(1) {
+            border-right: 2px solid black;
+            background-color: white;
+        }
+
+
+        .rank-1 {
+            background-color: #1d4ed8;
+        }
+
+        .rank-2 {
+            background-color: #2563eb;
+        }
+
+        .rank-3 {
+            background-color: #3b82f6;
+        }
+
+        .middle-rank {
+            background-color: #60a5fa;
+        }
+
+        .other-rank {
+            background-color: #93c5fd;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr class="columns">
+                <th>#</th>
+                <th>Naam</th>
+                <th>TOB</th>
+                <th>GOB</th>
+                <th>Netto donateurs</th>
+                <th>Werkdagen</th>
+                <th>Bruto donateurs</th>
+                <th>GIB</th>
+                <th>Uitval</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="rank-1"><td>1</td><td>Mark Briones</td><td>€ 253,0</td><td>€ 23,0</td><td>31</td><td>11</td><td>37</td><td>€ 8,16</td><td>16,0 %</td></tr><tr class="rank-2"><td>2</td><td>Mohamed Moussa</td><td>€ 211,0</td><td>€ 35,17</td><td>25</td><td>6</td><td>35</td><td>€ 8,44</td><td>29,0 %</td></tr><tr class="rank-3"><td>3</td><td>Seyar Khalili</td><td>€ 191,0</td><td>€ 38,2</td><td>16</td><td>5</td><td>22</td><td>€ 11,94</td><td>27,0 %</td></tr><tr class="middle-rank"><td>4</td><td>Monte Marck</td><td>€ 158,5</td><td>€ 39,63</td><td>20</td><td>4</td><td>23</td><td>€ 7,93</td><td>13,0 %</td></tr><tr class="middle-rank"><td>5</td><td>Ghassan Mosto</td><td>€ 156,0</td><td>€ 39,0</td><td>19</td><td>4</td><td>21</td><td>€ 8,21</td><td>10,0 %</td></tr><tr class="middle-rank"><td>6</td><td>Samir Khalili</td><td>€ 92,5</td><td>€ 23,12</td><td>8</td><td>4</td><td>13</td><td>€ 11,56</td><td>38,0 %</td></tr><tr class="middle-rank"><td>7</td><td>Elodie Angevaare</td><td>€ 75,0</td><td>€ 15,0</td><td>7</td><td>5</td><td>10</td><td>€ 10,71</td><td>30,0 %</td></tr><tr class="middle-rank"><td>8</td><td>Nick Passtoors</td><td>€ 64,5</td><td>€ 8,06</td><td>6</td><td>8</td><td>13</td><td>€ 10,75</td><td>54,0 %</td></tr><tr class="middle-rank"><td>9</td><td>Justus-Han Angevaare</td><td>€ 50,0</td><td>€ 10,0</td><td>4</td><td>5</td><td>7</td><td>€ 12,5</td><td>43,0 %</td></tr><tr class="middle-rank"><td>10</td><td>Jochem Vermeulen</td><td>€ 20,0</td><td>€ 6,67</td><td>2</td><td>3</td><td>3</td><td>€ 10,0</td><td>33,0 %</td></tr><tr class="other-rank"><td>11</td><td>Aron Roberts</td><td>€ 15,0</td><td>€ 15,0</td><td>2</td><td>1</td><td>2</td><td>€ 7,5</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Dirk Nieuwenhuis</td><td>€ 15,0</td><td>€ 7,5</td><td>1</td><td>2</td><td>3</td><td>€ 15,0</td><td>67,0 %</td></tr><tr class="other-rank"><td>13</td><td>Emiel Krak</td><td>€ 10,0</td><td>€ 3,33</td><td>2</td><td>3</td><td>4</td><td>€ 5,0</td><td>50,0 %</td></tr><tr class="other-rank"><td>14</td><td>Hein de Bruijn</td><td>€ 5,0</td><td>€ 5,0</td><td>1</td><td>1</td><td>1</td><td>€ 5,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Jaromir Levi</td><td>€ 5,0</td><td>€ 5,0</td><td>1</td><td>1</td><td>1</td><td>€ 5,0</td><td>0,0 %</td></tr><tr class="other-rank"><td>16</td><td>Vincent Dauvillier</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Tawan Ngoenyuang</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Noah Krak</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Ramon Dauvillier</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Philippe Sas</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Mike van Arkel</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Jurre Spies</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Marijn Hack</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Thijmen van Dijk</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Gijs Klaassens</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Merel van Dijk</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Jelle de Roos</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr><tr class="other-rank"><td></td><td>Olivier Vogelzang</td><td>€ -0,0</td><td>€ 0,0</td><td>0</td><td>0</td><td>0</td><td>€ 0,0</td><td>0,0 %</td></tr>
+        </tbody>
+</body>
+
+</html>
+    

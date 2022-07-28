@@ -1,6 +1,8 @@
 import backstage
 import google_client as gc
 import datetime as dt
+import pandas_to_html as pd2html
+import send_mail as sm
 
 def main():
     try: 
@@ -23,7 +25,13 @@ def main():
         utrecht_backstage.run(wervers)
         utrecht_backstage.sort_data(['TOB'])
         utrecht_data = utrecht_backstage.data
-        lb_client.to_spreadsheet(utrecht_data, 'B4')
+        utrecht_data.to_csv('./CSVs/utrecht_data.csv')
+        # lb_client.to_spreadsheet(utrecht_data, 'B4')
+
+        # HTML -> PNG -> EMAIL
+        pd2html.main('utrecht_data')
+        sm.send_m('jtsangsolutions@gmail.com', 'utrecht_data.png')
+
         print(utrecht_data)
         print('\n')
     except Exception as e:

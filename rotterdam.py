@@ -71,7 +71,7 @@ def main():
         print('\n')
 
         sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
-        lb_client.to_spreadsheet(sp_data, 'B3')
+        # lb_client.to_spreadsheet(sp_data, 'B3')
 
         # Sales Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
@@ -87,7 +87,7 @@ def main():
         print('\n')
 
         p_data = merge_data(p_algemeen_data, p_svhk_data)
-        lb_client.to_spreadsheet(p_data, 'B' + str(3 + len(sp) + 4))
+        # lb_client.to_spreadsheet(p_data, 'B' + str(3 + len(sp) + 4))
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
@@ -103,14 +103,14 @@ def main():
         print('\n')
 
         st_data = merge_data(st_algemeen_data, st_svhk_data)
-        lb_client.to_spreadsheet(st_data, 'B' + str(3 + len(sp) + len(p) + 8))
+        # lb_client.to_spreadsheet(st_data, 'B' + str(3 + len(sp) + len(p) + 8))
 
         # Loondienst
         loondienst_backstage = backstage.backstage('algemeen')
         loondienst_backstage.run(loondienst)
         loondienst_backstage.sort_data(['TOB'])
         loondienst_data = loondienst_backstage.data
-        name_client.to_spreadsheet(loondienst_data, 'L3')
+        # name_client.to_spreadsheet(loondienst_data, 'L3')
         print(loondienst_data)
         print('\n')
     except Exception as e:

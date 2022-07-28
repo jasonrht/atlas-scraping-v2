@@ -1,22 +1,21 @@
-import email
+from email.mime.application import MIMEApplication
+from posixpath import basename
 import smtplib, ssl
 import datetime
-from datetime import date
-from email import encoders
-from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 import os
+import pandas as pd
+import pandas_to_html
 
 load_dotenv()
 
-def send_m(receiver):
+def send_m(receiver, filename):
     try:
         print('send_mail.py: Sending email ...')
         password = os.getenv('EMAIL_KEY')
         subject = "Data Atlas"
-        body = ("Script run automatically from RPi4 @" + datetime.datetime.now().strftime("%d %B %Y, %H:%M:%S"))
         sender_email = os.getenv('EMAIL')
 
         # Create a multipart message and set headers
@@ -26,16 +25,18 @@ def send_m(receiver):
         message["Subject"] = subject
         message["Bcc"] = receiver  # Recommended for mass emails
 
-        # Add body to email
-        message.attach(MIMEText(body, "plain"))
-
-        text = message.as_string()
+        # Attach files
+        with open(f'./PNGs/{filename}', 'rb') as file:
+            part = MIMEApplication(file.read(), Name=basename(filename))
+            part['Content-Disposition'] = 'attachment; filename="%s"' % basename(filename)
+            message.attach(part)
 
         # Log in to server using secure context and send email
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(sender_email, password)
-            server.sendmail(sender_email, receiver, text)
+            server.sendmail(sender_email, receiver, message.as_string())
+            server.quit()
         print('send-mail.py: Email sent successfully !')
     except Exception as e:
         print(e)
@@ -44,15 +45,9 @@ def send_m(receiver):
 def send_multiple(receiver_emails):
     for receiver in receiver_emails:
         send_m(receiver)
-    
-# try:
-#     receiver_emails = ["jasonraefon@hotmail.com","nino.atlassalesagency@gmail.com"]
-#     send_multiple(receiver_emails)
 
-#     # send_m("jasonraefon@hotmail.com")
-#     print("Email sent successfully at: ", datetime.datetime.now())
-# except Exception as e:
-#     print(e)
-#     print("Email NOT sent successfully at: ", date.today().strftime("%d %B %Y"))
+def main(png_filename):
+    send_m('jtsangsolutions@gmail.com', f'./{png_filename}')
 
-# send_m('jtsangsolutions@gmail.com')
+if __name__ == '__main__':
+    main()

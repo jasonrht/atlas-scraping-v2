@@ -15,8 +15,6 @@ def main():
     apd.main()
     utr.main()
 
-    sm.send_m('jtsangsolutions@gmail.com')
-
     t1 = dt.datetime.now()
     print(f'Script run in {t1-t0}')
 
