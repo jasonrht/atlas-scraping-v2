@@ -2,6 +2,9 @@ import pandas as pd
 import backstage
 import google_client as gc
 import datetime as dt
+import pd_to_html
+import traceback
+import send_mail as sm
 
 def new_index(df):
     tobs = df.loc[:,"TOB"].values
@@ -25,9 +28,9 @@ def merge_data(df1, df2):
     merged_data['Werkdagen'] = df1['Werkdagen'] + df2['Werkdagen']
     merged_data['Bruto donateurs'] = df1['Bruto donateurs'] + df2['Bruto donateurs']
     merged_data['Netto donateurs'] = df1['Netto donateurs'] + df2['Bruto donateurs']
-    merged_data['GOB'] = merged_data['TOB'] / merged_data['Werkdagen']
-    merged_data['GIB'] = merged_data['TOB'] / merged_data['Bruto donateurs']
-    merged_data['Uitval'] = (merged_data['Bruto donateurs'] - merged_data['Netto donateurs']) / merged_data['Bruto donateurs']
+    merged_data['GOB'] = round(merged_data['TOB'] / merged_data['Werkdagen'], 2)
+    merged_data['GIB'] = round(merged_data['TOB'] / merged_data['Bruto donateurs'], 2)
+    merged_data['Uitval'] = round((merged_data['Bruto donateurs'] - merged_data['Netto donateurs']) / merged_data['Bruto donateurs'], 1)
     merged_data.sort_values(by=['TOB'], ascending=False, inplace=True)
     new_indices = new_index(merged_data)
     # merged_data.set_index(pd.Index(new_indices), inplace=True)
@@ -48,13 +51,13 @@ def main():
             month = str(month)
         YEAR = str(today.year)
         lb_client = gc.google_client()
-        lb_client.get_sheet('Leaderboard Juli 2022', 'LeaderboardsAtlas')
+        lb_client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
         name_client = gc.google_client()
-        name_client.get_sheet('RTM namenlijst', 'LeaderboardsAtlas')
-        sp = name_client.get_names(1)
+        name_client.get_sheet('Namenlijst', 'Rotterdam HQ - Leaderboards')
+        sp = name_client.get_names(2)
         p = name_client.get_names(3)
-        st = name_client.get_names(5)
-        loondienst = name_client.get_names(7)
+        st = name_client.get_names(4)
+        loondienst = name_client.get_names(5)
 
         ### Rotterdam ZZP ###
         # Sales Professionals+
@@ -71,7 +74,12 @@ def main():
         print('\n')
 
         sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
-        # lb_client.to_spreadsheet(sp_data, 'B3')
+        sp_data.set_index(sp_data.iloc[:,0],inplace=True)
+        sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
+        sp_data.to_csv('./CSVs/sp_data.csv')
+        sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
+        sp_pd2html.main('sp_data')
+        lb_client.to_spreadsheet(sp_data, 'B3')
 
         # Sales Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
@@ -87,6 +95,11 @@ def main():
         print('\n')
 
         p_data = merge_data(p_algemeen_data, p_svhk_data)
+        p_data.set_index(p_data.iloc[:,0],inplace=True)
+        p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
+        p_data.to_csv('./CSVs/p_data.csv')
+        p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
+        p_pd2html.main('p_data')
         # lb_client.to_spreadsheet(p_data, 'B' + str(3 + len(sp) + 4))
 
         # Shark Tank
@@ -103,6 +116,11 @@ def main():
         print('\n')
 
         st_data = merge_data(st_algemeen_data, st_svhk_data)
+        st_data.set_index(st_data.iloc[:,0],inplace=True)
+        st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
+        st_data.to_csv('./CSVs/st_data.csv')
+        st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+        st_pd2html.main('st_data')
         # lb_client.to_spreadsheet(st_data, 'B' + str(3 + len(sp) + len(p) + 8))
 
         # Loondienst
@@ -110,11 +128,110 @@ def main():
         loondienst_backstage.run(loondienst)
         loondienst_backstage.sort_data(['TOB'])
         loondienst_data = loondienst_backstage.data
+        loondienst_data.to_csv('./CSVs/loondienst_data.csv')
+        ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
+        ld_pd2html.main('loondienst_data')
         # name_client.to_spreadsheet(loondienst_data, 'L3')
         print(loondienst_data)
         print('\n')
+
+        # Merge all HTMLs
+        tot_html = '''
+        <html>
+
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            html {
+                font-family: 'Lato', sans-serif;
+            }
+
+            .lb-title {
+                text-align: center;
+            }
+
+            table {
+                border: solid 2px black;
+                border-collapse: collapse;
+                color: black;
+                width: 1000px;
+                margin-bottom: 5rem;
+            }
+
+            tr {
+                border-bottom: solid 2px black;
+            }
+
+            th,
+            td {
+                padding: 5px 10px;
+                text-align: center;
+                max-height: 30px;
+                border-right: solid 2px black;
+            }
+
+            tr th:nth-child(1) {
+                border-right: 2px solid black;
+            }
+
+            tr td:nth-child(1) {
+                border-right: 2px solid black;
+                background-color: white;
+            }
+
+            .promotion {
+                background-color: green;
+            }
+
+            .rank-1 {
+                background-color: #1d4ed8;
+                font-weight: bold;
+            }
+
+            .rank-2 {
+                background-color: #2563eb;
+                font-weight: bold;
+            }
+
+            .rank-3 {
+                background-color: #3b82f6;
+                font-weight: bold;
+            }
+
+            .middle-rank {
+                background-color: #60a5fa;
+            }
+
+            .other-rank {
+                background-color: #93c5fd;
+            }
+
+            .totaal-row {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; padding: 0 1rem;">
+        '''
+        locations = ['sp_data', 'loondienst_data', 'p_data','st_data']
+        for loc in locations:
+            with open(f'./HTMLs/{loc}.html', 'r') as file:
+                tot_html += file.read()
+            file.close()
+        tot_html += '</body></html>'
+        with open('./HTMLs/rtm_tot_.html', 'w') as file:
+            file.write(tot_html)
+        file.close()
+
+        # sm.send_m('jtsangsolutions@gmail.com', ['sp_data.png','p_data.png','st_data.png','loondienst_data.png'])
+        # sm.send_m('nino.atlassalesagency@gmail.com', ['sp_data.png','p_data.png','st_data.png','loondienst_data.png'])
     except Exception as e:
-        print(e)
+        traceback.print_exc()
         print('rotterdam.py - ERROR: Failed to run script ...')
 
 if __name__ == '__main__':

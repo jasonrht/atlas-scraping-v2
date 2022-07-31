@@ -7,11 +7,10 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 import os
 import pandas as pd
-import pandas_to_html
 
 load_dotenv()
 
-def send_m(receiver, filename):
+def send_m(receiver, filenames):
     try:
         print('send_mail.py: Sending email ...')
         password = os.getenv('EMAIL_KEY')
@@ -26,10 +25,11 @@ def send_m(receiver, filename):
         message["Bcc"] = receiver  # Recommended for mass emails
 
         # Attach files
-        with open(f'./PNGs/{filename}', 'rb') as file:
-            part = MIMEApplication(file.read(), Name=basename(filename))
-            part['Content-Disposition'] = 'attachment; filename="%s"' % basename(filename)
-            message.attach(part)
+        for filename in filenames:
+            with open(f'./PNGs/{filename}', 'rb') as file:
+                part = MIMEApplication(file.read(), Name=basename(filename))
+                part['Content-Disposition'] = 'attachment; filename="%s"' % basename(filename)
+                message.attach(part)
 
         # Log in to server using secure context and send email
         context = ssl.create_default_context()
@@ -37,7 +37,7 @@ def send_m(receiver, filename):
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver, message.as_string())
             server.quit()
-        print('send-mail.py: Email sent successfully !')
+        print('send-mail.py: Email sent successfully !')    
     except Exception as e:
         print(e)
         print('send_mail.py: Failed to send email ...')

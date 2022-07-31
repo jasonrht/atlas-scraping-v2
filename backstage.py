@@ -25,6 +25,10 @@ class backstage:
             self.platform = platform
             self.login('https://backstage.stichtingvanhetkind.nl/login')
             res = self.session.get('https://backstage.stichtingvanhetkind.nl/admin/career/bonus/detail?user=7661&start_month=01&start_year=2022')
+        elif platform == 'svhk-apd':
+            self.platform = platform
+            self.login('https://backstage.stichtingvanhetkind.nl/login')
+            res = self.session.get('https://backstage.stichtingvanhetkind.nl/admin/career/bonus/detail')
 
         self.werver_ids = self.werver_dict(res.text)
 
@@ -40,7 +44,12 @@ class backstage:
             "password": os.getenv('SVHK_PW')
         }
 
-        all_login_creds = [login_creds, svhk_login_creds]
+        svhk_apd_creds = {
+            "email": os.getenv('SVHK_APD_USERNAME'),
+            "password": os.getenv('SVHK_APD_PW')
+        }
+
+        all_login_creds = [login_creds, svhk_login_creds, svhk_apd_creds]
 
         s = requests.session()
         login_page = s.get(url)
@@ -48,8 +57,10 @@ class backstage:
         csrf_token = login_page_bs.find("input", attrs={"name":"_csrf_token"}).get("value")
         if self.platform == 'algemeen':
             login_creds = all_login_creds[0]
-        else:
+        elif self.platform == 'svhk':
             login_creds = all_login_creds[1]
+        elif self.platform == 'svhk-apd':
+            login_creds = all_login_creds[2]
         login_creds["_csrf_token"] = csrf_token
         s.post(url, data=login_creds)
         self.session = s
@@ -225,13 +236,14 @@ if __name__ == '__main__':
         Testing
     '''
     spreadsheet_client = gc.google_client()
-    spreadsheet_client.get_sheet('RTM namenlijst', 'LeaderboardsAtlas')
-    all_wervers = spreadsheet_client.get_names(1)
+    spreadsheet_client.get_sheet('APD namenlijst', 'Apeldoorn - Leaderboards')
+    all_wervers = spreadsheet_client.get_names(2)
 
-    algemeen_backstage = backstage('algemeen')
+    algemeen_backstage = backstage('svhk-apd')
     algemeen_backstage.run(all_wervers)
     algemeen_backstage.sort_data(['TOB'])
     algemeen_data = algemeen_backstage.data
     algemeen_data.set_index(algemeen_data.iloc[:,0],inplace=True)
     algemeen_data.drop(algemeen_data.columns[[0]], axis=1, inplace=True)
+    print(algemeen_data)
     # algemeen_data.to_csv('data.csv')

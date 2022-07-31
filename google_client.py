@@ -41,28 +41,12 @@ class google_client:
         try:
             print('Fetching names from spreadsheet ...')
             WARNING = '!!! VERGEET NIET OM RIJEN TOE TE VOEGEN OP DE LEADERBOARDS WANNEER JE HIER EEN WERVER TOEVOEGT !!!'
-            names = list(filter(lambda x: x != 'ROTTERDAM' and x != 'Naam' and x != '' and x != WARNING, self.sheet.col_values(column_index)))
+            names = list(filter(lambda x: x != 'ZZP' and x != 'Sales Professionals+' and x != '' and x != 'Promotors' and x != 'Shark Tank' and x != 'Loondienst' and x != 'Wervers', self.sheet.col_values(column_index)))
             print('Names fetched!')
             return names
         except Exception as e:
             print(e)
             print('ERROR: Failed to get names from spreadsheet ...')
-        
-    def get_name_status(self, name_index, status_index):
-        try:
-            print('Fetching names and statuses ...')
-            WARNING = '!!! VERGEET NIET OM RIJEN TOE TE VOEGEN OP DE LEADERBOARDS WANNEER JE HIER EEN WERVER TOEVOEGT !!!'
-            names = list(filter(lambda x: x != 'ROTTERDAM' and x != 'Naam' and x != '' and x != WARNING, self.sheet.col_values(name_index)))
-            statuses = list(filter(lambda x: x != 'Status' and x != '' and x != WARNING, self.sheet.col_values(status_index)))
-            name_dict = {}
-            for i, name in enumerate(names):
-                name_dict[name] = statuses[i]
-            print('Fetched names and statuses !')
-            return name_dict
-        except Exception as e:
-            print(e)
-            print('ERROR: Failed to fetch names and statuses ...')
-
 
 if __name__ == '__main__':
     '''
