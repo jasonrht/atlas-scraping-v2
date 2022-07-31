@@ -228,7 +228,7 @@ def main():
             file.write(tot_html)
         file.close()
 
-        # sm.send_m('jtsangsolutions@gmail.com', ['sp_data.png','p_data.png','st_data.png','loondienst_data.png'])
+        sm.send_m('jtsangsolutions@gmail.com', ['sp_data.png','p_data.png','st_data.png','loondienst_data.png'])
         # sm.send_m('nino.atlassalesagency@gmail.com', ['sp_data.png','p_data.png','st_data.png','loondienst_data.png'])
     except Exception as e:
         traceback.print_exc()

@@ -35,7 +35,7 @@ def main():
         lb_client.to_spreadsheet(apeldoorn_data, 'B4')
 
         # HTML -> PNG -> EMAIL
-        # sm.send_m('jtsangsolutions@gmail.com', 'apeldoorn_data.png')
+        sm.send_m('jtsangsolutions@gmail.com', 'apeldoorn_data.png')
 
         print(apeldoorn_data)
         print('\n')
