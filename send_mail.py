@@ -10,7 +10,7 @@ import pandas as pd
 
 load_dotenv()
 
-def send_m(receiver, filenames):
+def send_m(receiver, filenames, send_images=False):
     try:
         print('send_mail.py: Sending email ...')
         password = os.getenv('EMAIL_KEY')
@@ -24,12 +24,13 @@ def send_m(receiver, filenames):
         message["Subject"] = subject
         message["Bcc"] = receiver  # Recommended for mass emails
 
-        # Attach files
-        for filename in filenames:
-            with open(f'./PNGs/{filename}', 'rb') as file:
-                part = MIMEApplication(file.read(), Name=basename(filename))
-                part['Content-Disposition'] = 'attachment; filename="%s"' % basename(filename)
-                message.attach(part)
+        if send_images:
+            # Attach files
+            for filename in filenames:
+                with open(f'./PNGs/{filename}', 'rb') as file:
+                    part = MIMEApplication(file.read(), Name=basename(filename))
+                    part['Content-Disposition'] = 'attachment; filename="%s"' % basename(filename)
+                    message.attach(part)
 
         # Log in to server using secure context and send email
         context = ssl.create_default_context()

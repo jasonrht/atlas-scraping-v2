@@ -29,7 +29,7 @@ def main():
         lb_client.to_spreadsheet(nijmegen_data, 'B4')
 
         # HTML -> PNG -> EMAIL
-        sm.send_m('jtsangsolutions@gmail.com', 'nijmegen_data.png')
+        sm.send_m('jtsangsolutions@gmail.com', ['nijmegen_data.png'], send_images=False)
         print(nijmegen_data)
         print('\n')
     except Exception as e:

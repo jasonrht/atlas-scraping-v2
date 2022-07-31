@@ -29,7 +29,7 @@ def main():
         lb_client.to_spreadsheet(amsterdam_data, 'B4')
 
         # HTML -> PNG -> EMAIL
-        sm.send_m('jtsangsolutions@gmail.com', 'amsterdam_data.png')
+        sm.send_m('jtsangsolutions@gmail.com', ['amsterdam_data.png'], send_images=False)
     
         print(amsterdam_data)
         print('\n')
