@@ -1,6 +1,7 @@
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import datetime as dt
+import backstage
 
 class google_client:
     client = ''
@@ -31,6 +32,7 @@ class google_client:
     def to_spreadsheet(self, df, corner):
         try:
             print('Updating spreadsheet ...')
+            df.reset_index(inplace=True)
             self.sheet.update(corner, [df.columns.values.tolist()] + df.values.tolist())
             print('Spreadsheet update success!')
         except Exception as e:
