@@ -19,6 +19,7 @@ def main():
         name_client = gc.google_client()
         name_client.get_sheet('Namenlijst', 'Apeldoorn - Leaderboards')
         wervers = name_client.get_names(2)
+        svhk_wervers = name_client.get_names(3)
 
         # Apeldoorn
         apeldoorn_backstage = backstage.backstage('algemeen')
@@ -27,12 +28,12 @@ def main():
         apeldoorn_data = apeldoorn_backstage.data
         apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
 
-        # apeldoorn_backstage = backstage.backstage('algemeen')
-        # apeldoorn_backstage.run(wervers)
-        # apeldoorn_backstage.sort_data(['TOB'])
-        # apeldoorn_data = apeldoorn_backstage.data
-        # apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
-        lb_client.to_spreadsheet(apeldoorn_data, 'B4')
+        apeldoorn_backstage = backstage.backstage('svhk-apd')
+        apeldoorn_backstage.run(svhk_wervers)
+        apeldoorn_backstage.sort_data(['TOB'])
+        apeldoorn_data = apeldoorn_backstage.data
+        apeldoorn_data.to_csv('./CSVs/apeldoorn_svhk_data.csv')
+        # lb_client.to_spreadsheet(apeldoorn_data, 'B4')
 
         # HTML -> PNG -> EMAIL
         sm.send_m('jtsangsolutions@gmail.com', ['apeldoorn_data.png'], send_images=False)

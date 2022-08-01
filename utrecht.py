@@ -19,14 +19,22 @@ def main():
         name_client = gc.google_client()
         name_client.get_sheet('Namenlijst', 'Utrecht - Leaderboards')
         wervers = name_client.get_names(2)
+        svhk_wervers = name_client.get_names(6)
 
         # Utrecht
-        utrecht_backstage = backstage.backstage('algemeen')
-        utrecht_backstage.run(wervers)
+        # utrecht_backstage = backstage.backstage('algemeen')
+        # utrecht_backstage.run(wervers)
+        # utrecht_backstage.sort_data(['TOB'])
+        # utrecht_data = utrecht_backstage.data
+        # utrecht_data.to_csv('./CSVs/utrecht_data.csv')
+        # lb_client.to_spreadsheet(utrecht_data, 'B4')
+
+        utrecht_backstage = backstage.backstage('svhk-utr')
+        utrecht_backstage.run(svhk_wervers)
         utrecht_backstage.sort_data(['TOB'])
         utrecht_data = utrecht_backstage.data
-        utrecht_data.to_csv('./CSVs/utrecht_data.csv')
-        lb_client.to_spreadsheet(utrecht_data, 'B4')
+        utrecht_data.to_csv('./CSVs/utrecht_svhk_data.csv')
+        # lb_client.to_spreadsheet(apeldoorn_data, 'B4')
 
         # HTML -> PNG -> EMAIL
         sm.send_m('jtsangsolutions@gmail.com', ['utrecht_data.png'], send_images=False)

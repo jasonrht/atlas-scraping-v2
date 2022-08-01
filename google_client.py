@@ -43,7 +43,7 @@ class google_client:
         try:
             print('Fetching names from spreadsheet ...')
             WARNING = '!!! VERGEET NIET OM RIJEN TOE TE VOEGEN OP DE LEADERBOARDS WANNEER JE HIER EEN WERVER TOEVOEGT !!!'
-            names = list(filter(lambda x: x != 'ZZP' and x != 'Sales Professionals+' and x != '' and x != 'Promotors' and x != 'Shark Tank' and x != 'Loondienst' and x != 'Wervers', self.sheet.col_values(column_index)))
+            names = list(filter(lambda x: x != 'ZZP' and x != 'Sales Professionals+' and x != '' and x != 'Promotors' and x != 'Shark Tank' and x != 'Loondienst' and x != 'Wervers' and x != 'SVHK', self.sheet.col_values(column_index)))
             print('Names fetched!')
             return names
         except Exception as e:

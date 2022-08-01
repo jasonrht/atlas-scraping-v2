@@ -29,6 +29,10 @@ class backstage:
             self.platform = platform
             self.login('https://backstage.stichtingvanhetkind.nl/login')
             res = self.session.get('https://backstage.stichtingvanhetkind.nl/admin/career/bonus/detail')
+        elif platform == 'svhk-utr':
+            self.platform = platform
+            self.login('https://backstage.stichtingvanhetkind.nl/login')
+            res = self.session.get('https://backstage.stichtingvanhetkind.nl/admin/career/bonus/detail')
 
         self.werver_ids = self.werver_dict(res.text)
 
@@ -49,7 +53,12 @@ class backstage:
             "password": os.getenv('SVHK_APD_PW')
         }
 
-        all_login_creds = [login_creds, svhk_login_creds, svhk_apd_creds]
+        svhk_utr_creds = {
+            "email": os.getenv('SVHK_UTR_USERNAME'),
+            "password": os.getenv('SVHK_UTR_PW')
+        }
+
+        all_login_creds = [login_creds, svhk_login_creds, svhk_apd_creds, svhk_utr_creds]
 
         s = requests.session()
         login_page = s.get(url)
@@ -61,6 +70,8 @@ class backstage:
             login_creds = all_login_creds[1]
         elif self.platform == 'svhk-apd':
             login_creds = all_login_creds[2]
+        elif self.platform == 'svhk-utr':
+            login_creds = all_login_creds[3]
         login_creds["_csrf_token"] = csrf_token
         s.post(url, data=login_creds)
         self.session = s
@@ -210,15 +221,18 @@ class backstage:
         self.data.drop(self.data.columns[[0]], axis=1, inplace=True)
     
     def run(self, wervers):
-        MONTH = '07'
-        YEAR = '2022'
+        month = dt.datetime.today().month
+        if month < 10:
+            month = '0' + str(month)
+        month = str(month)
+        year = str(dt.datetime.today().year)
         t0 = dt.datetime.now()
         print(f'Fetching data for {self.platform} ...')
         werver_ids = self.werver_ids
         ids = []
         for werver in wervers:
             ids.append(werver_ids[werver])
-        links = self.get_links(wervers, ids, MONTH, YEAR)
+        links = self.get_links(wervers, ids, month, year)
         data = []
         for j, link in enumerate(links):
             try:
