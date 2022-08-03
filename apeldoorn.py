@@ -29,15 +29,17 @@ def main():
         apeldoorn_data = apeldoorn_backstage.data
         apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
 
+        lb_client.to_spreadsheet(apeldoorn_data, 'B5')
         apd_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
         apd_pd2html.main('apeldoorn_data')
 
         apeldoorn_svhk_backstage = backstage.backstage('svhk-apd')
         apeldoorn_svhk_backstage.run(svhk_wervers)
         apeldoorn_svhk_backstage.sort_data(['TOB'])
-        apeldoorn_svhk_data = apeldoorn_backstage.data
+        apeldoorn_svhk_data = apeldoorn_svhk_backstage.data
         apeldoorn_svhk_data.to_csv('./CSVs/apeldoorn_svhk_data.csv')
 
+        lb_client.to_spreadsheet(apeldoorn_svhk_data, 'L5')
         apd_svhk_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
         apd_svhk_pd2html.main('apeldoorn_svhk_data')
 
@@ -132,7 +134,6 @@ def main():
         with open('./HTMLs/apeldoorn_tot.html', 'w') as w_file:
             w_file.write(html)
         w_file.close()
-        lb_client.to_spreadsheet(apeldoorn_data, 'B4')
 
         # HTML -> PNG -> EMAIL
         sm.send_m('jtsangsolutions@gmail.com', ['apeldoorn_data.png'], send_images=False)
