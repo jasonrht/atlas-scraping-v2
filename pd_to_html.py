@@ -108,9 +108,14 @@ class pd_to_html:
         return table_rows
     
     def calc_totals(self):
-        self.totals['GOB'] = round(self.totals['TOB'] / self.totals['Werkdagen'],2)
-        self.totals['GIB'] = round(self.totals['TOB'] / self.totals['Bruto donateurs'],2)
-        self.totals['Uitval'] = round((self.totals['Bruto donateurs'] - self.totals['Netto donateurs']) / self.totals['Bruto donateurs'],1)
+        if self.totals['Werkdagen'] != 0:
+            self.totals['GOB'] = round(self.totals['TOB'] / self.totals['Werkdagen'],2)
+        
+        if self.totals['Bruto donateurs'] != 0:
+            self.totals['GIB'] = round(self.totals['TOB'] / self.totals['Bruto donateurs'],2)
+
+        if self.totals['Bruto donateurs'] != 0:
+            self.totals['Uitval'] = round((self.totals['Bruto donateurs'] - self.totals['Netto donateurs']) / self.totals['Bruto donateurs'],1)
 
     def main(self, csv_filename):
         df = pd.read_csv(f'./CSVs/{csv_filename}.csv')
