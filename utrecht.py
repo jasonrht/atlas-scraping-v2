@@ -75,7 +75,7 @@ def main():
         sp_data.to_csv('./CSVs/sp_utr_data.csv')
         sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
         sp_pd2html.main('sp_utr_data')
-        # lb_client.to_spreadsheet(sp_data, 'B5')
+        lb_client.to_spreadsheet(sp_data, 'B5')
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
@@ -90,10 +90,6 @@ def main():
         st_pd2html.main('st_utr_data')
         lb_client.to_spreadsheet(st_data, 'B60')
 
-        # HTML -> PNG -> EMAIL
-        # sm.send_m('jtsangsolutions@gmail.com', ['utrecht_data.png'], send_images=False)
-
-        # print(sp_data)
         print('\n')
     except Exception as e:
         traceback.print_exc()

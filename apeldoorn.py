@@ -135,9 +135,6 @@ def main():
             w_file.write(html)
         w_file.close()
 
-        # HTML -> PNG -> EMAIL
-        sm.send_m('jtsangsolutions@gmail.com', ['apeldoorn_data.png'], send_images=False)
-
         print(apeldoorn_data)
         print('\n')
     except Exception as e:

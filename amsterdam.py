@@ -120,9 +120,6 @@ def main():
             w_file.write(html)
         w_file.close()
         lb_client.to_spreadsheet(amsterdam_data, 'B4')
-
-        # HTML -> PNG -> EMAIL
-        sm.send_m('jtsangsolutions@gmail.com', ['amsterdam_data.png'], send_images=False)
     
         print(amsterdam_data)
         print('\n')
