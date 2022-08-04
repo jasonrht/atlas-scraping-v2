@@ -10,7 +10,7 @@ import pandas as pd
 
 load_dotenv()
 
-def send_m(receiver, filenames, send_images=False):
+def send_m(receiver, filenames=[], send_images=False):
     try:
         print('send_mail.py: Sending email ...')
         password = os.getenv('EMAIL_KEY')
