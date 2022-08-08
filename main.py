@@ -8,6 +8,7 @@ import datetime as dt
 
 def main():
     t0 = dt.datetime.now()
+    print(t0)
 
     rtm.main()
     ams.main()

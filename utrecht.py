@@ -27,10 +27,10 @@ def merge_data(df1, df2):
     merged_data['TOB'] = df1['TOB'] + df2['TOB']
     merged_data['Werkdagen'] = df1['Werkdagen'] + df2['Werkdagen']
     merged_data['Bruto donateurs'] = df1['Bruto donateurs'] + df2['Bruto donateurs']
-    merged_data['Netto donateurs'] = df1['Netto donateurs'] + df2['Bruto donateurs']
+    merged_data['Netto donateurs'] = df1['Netto donateurs'] + df2['Netto donateurs']
     merged_data['GOB'] = round(merged_data['TOB'] / merged_data['Werkdagen'], 2)
     merged_data['GIB'] = round(merged_data['TOB'] / merged_data['Bruto donateurs'], 2)
-    merged_data['Uitval'] = round((merged_data['Bruto donateurs'] - merged_data['Netto donateurs']) / merged_data['Bruto donateurs'], 1)
+    merged_data['Uitval'] = round((merged_data['Bruto donateurs'] - merged_data['Netto donateurs']) / merged_data['Bruto donateurs'], 3)
     merged_data.sort_values(by=['TOB'], ascending=False, inplace=True)
     new_indices = new_index(merged_data)
     # merged_data.set_index(pd.Index(new_indices), inplace=True)
