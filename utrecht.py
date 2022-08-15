@@ -2,7 +2,6 @@ import backstage
 import google_client as gc
 import datetime as dt
 import pd_to_html
-import send_mail as sm
 import traceback
 import pandas as pd
 
@@ -22,6 +21,9 @@ def new_index(df):
     return new
 
 def merge_data(df1, df2):
+    '''
+        Merge the data of two dataframes.
+    '''
     merged_data = pd.DataFrame(columns=['Naam','TOB','GOB','Netto donateurs','Werkdagen','Bruto donateurs','GIB','Uitval'])
     merged_data['Naam'] = df1['Naam']
     merged_data['TOB'] = df1['TOB'] + df2['TOB']
@@ -29,11 +31,10 @@ def merge_data(df1, df2):
     merged_data['Bruto donateurs'] = df1['Bruto donateurs'] + df2['Bruto donateurs']
     merged_data['Netto donateurs'] = df1['Netto donateurs'] + df2['Netto donateurs']
     merged_data['GOB'] = round(merged_data['TOB'] / merged_data['Werkdagen'], 2)
-    merged_data['GIB'] = round(merged_data['TOB'] / merged_data['Bruto donateurs'], 2)
+    merged_data['GIB'] = round(merged_data['TOB'] / merged_data['Netto donateurs'], 2)
     merged_data['Uitval'] = round((merged_data['Bruto donateurs'] - merged_data['Netto donateurs']) / merged_data['Bruto donateurs'], 3)
     merged_data.sort_values(by=['TOB'], ascending=False, inplace=True)
     new_indices = new_index(merged_data)
-    # merged_data.set_index(pd.Index(new_indices), inplace=True)
     merged_data.insert(0, '', new_indices)
     merged_data.fillna(0, inplace=True)
     print(merged_data)
@@ -80,14 +81,24 @@ def main():
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
         st_algemeen_backstage.run(st)
-        st_algemeen_backstage.sort_data(['TOB'])
-        st_data = st_algemeen_backstage.data
-        print(st_data)
+        st_algemeen_data = st_algemeen_backstage.data
+        print(st_algemeen_data)
         print('\n')
 
-        st_data.to_csv('./CSVs/st_utr_data.csv')
-        st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
-        st_pd2html.main('st_utr_data')
+        st_svhk_backstage = backstage.backstage('svhk-utr')
+        st_svhk_backstage.run(st)
+        st_svhk_data = st_svhk_backstage.data
+        print(st_svhk_data)
+        print('\n')
+
+        st_data = merge_data(st_algemeen_data, st_svhk_data)
+        st_data.set_index(st_data.iloc[:,0],inplace=True)
+        st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
+        st_data.to_csv('./CSVs/sp_utr_data.csv')
+
+        # st_data.to_csv('./CSVs/st_utr_data.csv')
+        # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+        # st_pd2html.main('st_utr_data')
         lb_client.to_spreadsheet(st_data, 'B60')
 
         print('\n')

@@ -173,8 +173,12 @@ class backstage:
         else:
             gib = tob/float(netto_don*factor)
 
+        name = self.get_name(werver, wervers)
+        if name == 'key does not exist':
+            name = werver
+
         variables = {
-            "Naam": self.get_name(werver, wervers),
+            "Naam": name,
             "TOB": round(tob/factor,2),
             "GOB": round(gob,2),
             "Netto donateurs": netto_don,
@@ -231,7 +235,11 @@ class backstage:
         werver_ids = self.werver_ids
         ids = []
         for werver in wervers:
-            ids.append(werver_ids[werver])
+            if list(werver_ids.keys()).count(werver) != 0:
+                werver_id = werver_ids[werver]
+                ids.append(werver_id)
+            else:
+                ids.append(werver)
         links = self.get_links(wervers, ids, month, year)
         data = []
         for j, link in enumerate(links):
