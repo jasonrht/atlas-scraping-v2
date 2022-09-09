@@ -226,6 +226,7 @@ class backstage:
     
     def run(self, wervers):
         month = dt.datetime.today().month
+        # month = 8
         if month < 10:
             month = '0' + str(month)
         month = str(month)

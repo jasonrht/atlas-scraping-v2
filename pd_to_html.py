@@ -121,7 +121,7 @@ class pd_to_html:
         df = pd.read_csv(f'./CSVs/{csv_filename}.csv')
         df.fillna('', inplace=True)
         self.df_to_html(df, csv_filename)
-        self.to_image(csv_filename)
+        # self.to_image(csv_filename)
 
 if __name__ == '__main__':
     pd_to_html.main()
