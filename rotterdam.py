@@ -80,7 +80,7 @@ def main():
         sp_data.to_csv('./CSVs/sp_data.csv')
         sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
         sp_pd2html.main('sp_data')
-        # lb_client.to_spreadsheet(sp_data, 'B5')
+        lb_client.to_spreadsheet(sp_data, 'B5')
 
         # Sales Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
@@ -101,7 +101,7 @@ def main():
         p_data.to_csv('./CSVs/p_data.csv')
         p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
         p_pd2html.main('p_data')
-        # lb_client.to_spreadsheet(p_data, 'B39')
+        lb_client.to_spreadsheet(p_data, 'B39')
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
@@ -122,7 +122,7 @@ def main():
         st_data.to_csv('./CSVs/st_data.csv')
         st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
         st_pd2html.main('st_data')
-        # lb_client.to_spreadsheet(st_data, 'B53')
+        lb_client.to_spreadsheet(st_data, 'B53')
 
         # Loondienst
         loondienst_backstage = backstage.backstage('algemeen')
@@ -132,7 +132,7 @@ def main():
         loondienst_data.to_csv('./CSVs/loondienst_data.csv')
         ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
         ld_pd2html.main('loondienst_data')
-        # lb_client.to_spreadsheet(loondienst_data, 'L5')
+        lb_client.to_spreadsheet(loondienst_data, 'L5')
         print(loondienst_data)
         print('\n')
 
