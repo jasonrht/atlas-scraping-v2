@@ -124,7 +124,7 @@ def main():
         # st_pd2html.main('st_utr_data')
         lb_client.to_spreadsheet(st_data, 'B53')
 
-        # Shark Tank
+        # Loondienst
         ld_algemeen_backstage = backstage.backstage('algemeen')
         ld_algemeen_backstage.run(ld)
         ld_algemeen_data = ld_algemeen_backstage.data

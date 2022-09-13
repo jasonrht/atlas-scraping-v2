@@ -78,8 +78,8 @@ def main():
         sp_data.set_index(sp_data.iloc[:,0],inplace=True)
         sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
         sp_data.to_csv('./CSVs/sp_data.csv')
-        sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
-        sp_pd2html.main('sp_data')
+        # sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
+        # sp_pd2html.main('sp_data')
         lb_client.to_spreadsheet(sp_data, 'B5')
 
         # Sales Promotors
@@ -99,8 +99,8 @@ def main():
         p_data.set_index(p_data.iloc[:,0],inplace=True)
         p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
         p_data.to_csv('./CSVs/p_data.csv')
-        p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
-        p_pd2html.main('p_data')
+        # p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
+        # p_pd2html.main('p_data')
         lb_client.to_spreadsheet(p_data, 'B39')
 
         # Shark Tank
@@ -120,8 +120,8 @@ def main():
         st_data.set_index(st_data.iloc[:,0],inplace=True)
         st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
         st_data.to_csv('./CSVs/st_data.csv')
-        st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
-        st_pd2html.main('st_data')
+        # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+        # st_pd2html.main('st_data')
         lb_client.to_spreadsheet(st_data, 'B53')
 
         # Loondienst
@@ -130,104 +130,104 @@ def main():
         loondienst_backstage.sort_data(['TOB'])
         loondienst_data = loondienst_backstage.data
         loondienst_data.to_csv('./CSVs/loondienst_data.csv')
-        ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
-        ld_pd2html.main('loondienst_data')
+        # ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
+        # ld_pd2html.main('loondienst_data')
         lb_client.to_spreadsheet(loondienst_data, 'L5')
         print(loondienst_data)
         print('\n')
 
-        # Merge all HTMLs
-        tot_html = '''
-        <html>
+    #     # Merge all HTMLs
+    #     tot_html = '''
+    #     <html>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-            rel="stylesheet">
+    # <head>
+    #     <link rel="preconnect" href="https://fonts.googleapis.com">
+    #     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    #     <link
+    #         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    #         rel="stylesheet">
 
-        <style>
-            html {
-                font-family: 'Lato', sans-serif;
-            }
+    #     <style>
+    #         html {
+    #             font-family: 'Lato', sans-serif;
+    #         }
 
-            .lb-title {
-                text-align: center;
-            }
+    #         .lb-title {
+    #             text-align: center;
+    #         }
 
-            table {
-                border: solid 2px black;
-                border-collapse: collapse;
-                color: black;
-                width: 1000px;
-                margin-bottom: 5rem;
-            }
+    #         table {
+    #             border: solid 2px black;
+    #             border-collapse: collapse;
+    #             color: black;
+    #             width: 1000px;
+    #             margin-bottom: 5rem;
+    #         }
 
-            tr {
-                border-bottom: solid 2px black;
-            }
+    #         tr {
+    #             border-bottom: solid 2px black;
+    #         }
 
-            th,
-            td {
-                padding: 5px 10px;
-                text-align: center;
-                max-height: 30px;
-                border-right: solid 2px black;
-            }
+    #         th,
+    #         td {
+    #             padding: 5px 10px;
+    #             text-align: center;
+    #             max-height: 30px;
+    #             border-right: solid 2px black;
+    #         }
 
-            tr th:nth-child(1) {
-                border-right: 2px solid black;
-            }
+    #         tr th:nth-child(1) {
+    #             border-right: 2px solid black;
+    #         }
 
-            tr td:nth-child(1) {
-                border-right: 2px solid black;
-                background-color: white;
-            }
+    #         tr td:nth-child(1) {
+    #             border-right: 2px solid black;
+    #             background-color: white;
+    #         }
 
-            .promotion {
-                background-color: green;
-            }
+    #         .promotion {
+    #             background-color: green;
+    #         }
 
-            .rank-1 {
-                background-color: #1d4ed8;
-                font-weight: bold;
-            }
+    #         .rank-1 {
+    #             background-color: #1d4ed8;
+    #             font-weight: bold;
+    #         }
 
-            .rank-2 {
-                background-color: #2563eb;
-                font-weight: bold;
-            }
+    #         .rank-2 {
+    #             background-color: #2563eb;
+    #             font-weight: bold;
+    #         }
 
-            .rank-3 {
-                background-color: #3b82f6;
-                font-weight: bold;
-            }
+    #         .rank-3 {
+    #             background-color: #3b82f6;
+    #             font-weight: bold;
+    #         }
 
-            .middle-rank {
-                background-color: #60a5fa;
-            }
+    #         .middle-rank {
+    #             background-color: #60a5fa;
+    #         }
 
-            .other-rank {
-                background-color: #93c5fd;
-            }
+    #         .other-rank {
+    #             background-color: #93c5fd;
+    #         }
 
-            .totaal-row {
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; padding: 0 1rem;">
-        '''
-        locations = ['sp_data', 'loondienst_data', 'p_data','st_data']
-        for loc in locations:
-            with open(f'./HTMLs/{loc}.html', 'r') as file:
-                tot_html += file.read()
-            file.close()
-        tot_html += '</body></html>'
-        with open('./HTMLs/rtm_tot_.html', 'w') as file:
-            file.write(tot_html)
-        file.close()
+    #         .totaal-row {
+    #             font-weight: bold;
+    #         }
+    #     </style>
+    # </head>
+    # <body style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; padding: 0 1rem;">
+    #     '''
+    #     locations = ['sp_data', 'loondienst_data', 'p_data','st_data']
+    #     for loc in locations:
+    #         with open(f'./HTMLs/{loc}.html', 'r') as file:
+    #             tot_html += file.read()
+    #         file.close()
+    #     tot_html += '</body></html>'
+    #     with open('./HTMLs/rtm_tot_.html', 'w') as file:
+    #         file.write(tot_html)
+    #     file.close()
 
     except Exception as e:
         traceback.print_exc()
