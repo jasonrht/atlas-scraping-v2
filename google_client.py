@@ -3,6 +3,21 @@ import gspread
 import datetime as dt
 import backstage
 
+MONTH_DICT = {
+    1: 'Januari',
+    2: 'Februari',
+    3: 'Maart',
+    4: 'April',
+    5: 'Mei',
+    6: 'Juni',
+    7: 'Juli',
+    8: 'Augustus',
+    9: 'September',
+    10: 'Oktober',
+    11: 'November',
+    12: 'December'
+}
+
 class google_client:
     client = ''
     sheet = ''
@@ -50,11 +65,32 @@ class google_client:
             print(e)
             print('ERROR: Failed to get names from spreadsheet ...')
 
+    def change_name(self):
+        try:
+            print('Changing name ...')
+            prev_month = dt.datetime.today().month - 1
+            prev_month_name = MONTH_DICT[prev_month]
+            current_year = dt.datetime.today().year
+            self.sheet.update_title(f'{prev_month_name} {current_year}')
+            print('Name changed successfully !')
+        except Exception as e:
+            print(e)
+            print('ERROR: Failed to change name of spreadsheet ...')
+
+    def duplicate_sheet(self):
+        try:
+            self.sheet.duplicate()
+        except Exception as e:
+            print(e)
+            print('ERROR: Failed to change name of spreadsheet ...')
+
 if __name__ == '__main__':
     '''
         Testing
     '''
     client = google_client()
     client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
-    print(client.get_names(4))
+    client.duplicate_sheet()
+    client.get_sheet('Copy of Huidige maand', 'Rotterdam HQ - Leaderboards')
+    client.change_name()
 
