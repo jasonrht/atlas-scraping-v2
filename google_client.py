@@ -84,13 +84,29 @@ class google_client:
             print(e)
             print('ERROR: Failed to change name of spreadsheet ...')
 
+    def get_stat_adjustments(self, start_row_index):
+        try:
+            print('Fetching adjustment stats ...')
+            dagen_optellen_row = self.sheet.row_values(start_row_index)[1]
+            dagen_optellen_wervers = dagen_optellen_row.split(':')[1]
+            dagen_optellen_list = [werver.strip() for werver in dagen_optellen_wervers.split(',')]
+            dagen_optellen_stats = {}
+            for stat in dagen_optellen_list:
+                stat_list = stat.split(' ')
+                name = ''
+                for name_part in stat_list[:-1]:
+                    name += f' {name_part}'
+                dagen_optellen_stats[name.strip()] = int(stat.split(' ')[-1])
+            print(dagen_optellen_stats)
+        except Exception as e:
+            print(e)
+            print('ERROR: Failed to get adjustment stats ...')
+
 if __name__ == '__main__':
     '''
         Testing
     '''
     client = google_client()
     client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
-    client.duplicate_sheet()
-    client.get_sheet('Copy of Huidige maand', 'Rotterdam HQ - Leaderboards')
-    client.change_name()
+    client.get_stat_adjustments(78)
 
