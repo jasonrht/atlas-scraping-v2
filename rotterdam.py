@@ -59,17 +59,25 @@ def main():
         p = name_client.get_names(3)
         st = name_client.get_names(4)
         loondienst = name_client.get_names(5)
+        sp2 = []
+        for name in sp:
+            name_bool = name in p or name in st or name in loondienst
+            if not name_bool:
+                sp2.append(name)
+
+        adj_list = lb_client.get_stat_adjustments(97)
 
         ### Rotterdam ZZP ###
         # Sales Professionals+
         sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp)
+        sp_algemeen_backstage.run(sp2, adj_list)
         sp_algemeen_data = sp_algemeen_backstage.data
         print(sp_algemeen_data)
         print('\n')
 
+
         sp_svhk_backstage = backstage.backstage('svhk')
-        sp_svhk_backstage.run(sp)
+        sp_svhk_backstage.run(sp2)
         sp_svhk_data = sp_svhk_backstage.data
         print(sp_svhk_data)
         print('\n')
@@ -84,7 +92,7 @@ def main():
 
         # Sales Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
-        p_algemeen_backstage.run(p)
+        p_algemeen_backstage.run(p, adj_list)
         p_algemeen_data = p_algemeen_backstage.data
         print(p_algemeen_data)
         print('\n')
@@ -101,11 +109,11 @@ def main():
         p_data.to_csv('./CSVs/p_data.csv')
         # p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
         # p_pd2html.main('p_data')
-        lb_client.to_spreadsheet(p_data, 'B39')
+        lb_client.to_spreadsheet(p_data, 'B59')
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
-        st_algemeen_backstage.run(st)
+        st_algemeen_backstage.run(st, adj_list)
         st_algemeen_data = st_algemeen_backstage.data
         print(st_algemeen_data)
         print('\n')
@@ -122,7 +130,7 @@ def main():
         st_data.to_csv('./CSVs/st_data.csv')
         # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
         # st_pd2html.main('st_data')
-        lb_client.to_spreadsheet(st_data, 'B53')
+        lb_client.to_spreadsheet(st_data, 'B73')
 
         # Loondienst
         loondienst_backstage = backstage.backstage('algemeen')

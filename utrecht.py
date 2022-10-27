@@ -58,16 +58,21 @@ def main():
         p = name_client.get_names(3)
         st = name_client.get_names(4)
         ld = name_client.get_names(5)
+        sp2 = []
+        for name in sp:
+            name_bool = name in p or name in st or name in ld
+            if not name_bool:
+                sp2.append(name)
 
         # Sales Promotors
         sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp)
+        sp_algemeen_backstage.run(sp2)
         sp_algemeen_data = sp_algemeen_backstage.data
         print(sp_algemeen_data)
         print('\n')
 
         sp_svhk_backstage = backstage.backstage('svhk-utr')
-        sp_svhk_backstage.run(sp)
+        sp_svhk_backstage.run(sp2)
         sp_svhk_data = sp_svhk_backstage.data
         print(sp_svhk_data)
         print('\n')

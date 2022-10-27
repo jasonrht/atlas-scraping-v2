@@ -65,6 +65,18 @@ class google_client:
             print(e)
             print('ERROR: Failed to get names from spreadsheet ...')
 
+    def get_all_names(self):
+        names = []
+        all_values = client.sheet.get_all_values()
+        for category in all_values[2][1:3]:
+            names.append([])
+            
+        for value_list in all_values[3:]:
+            for index, name in enumerate(value_list[1:3]):
+                if(name):
+                    names[index].append(name)
+        return names
+
     def change_name(self):
         try:
             print('Changing name ...')
@@ -86,21 +98,19 @@ class google_client:
 
     def get_stat_adjustments(self, start_row_index):
         try:
-            print('Fetching adjustment stats ...')
-            dagen_optellen_row = self.sheet.row_values(start_row_index)[1]
-            dagen_optellen_wervers = dagen_optellen_row.split(':')[1]
-            dagen_optellen_list = [werver.strip() for werver in dagen_optellen_wervers.split(',')]
-            dagen_optellen_stats = {}
-            for stat in dagen_optellen_list:
-                stat_list = stat.split(' ')
-                name = ''
-                for name_part in stat_list[:-1]:
-                    name += f' {name_part}'
-                dagen_optellen_stats[name.strip()] = int(stat.split(' ')[-1])
-            print(dagen_optellen_stats)
+            adj_col_values = self.sheet.col_values(4)[start_row_index:]
+            adj_col_names = self.sheet.col_values(3)[start_row_index:]
+            adj_col_list = []
+            for index, value in enumerate(adj_col_values):
+                adj_col_list.append([adj_col_names[index], value])
+            adj_col_list = list(filter(lambda x: x[1] != '', adj_col_list))
+            return adj_col_list
+
         except Exception as e:
             print(e)
             print('ERROR: Failed to get adjustment stats ...')
+
+
 
 if __name__ == '__main__':
     '''
@@ -108,5 +118,7 @@ if __name__ == '__main__':
     '''
     client = google_client()
     client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
-    client.get_stat_adjustments(78)
+    client.get_stat_adjustments(97)
+    # names = client.get_all_names()
+    # print(names[0])
 

@@ -96,7 +96,7 @@ class backstage:
                 return key 
         return "key does not exist"
     
-    def get_data(self, werver,content):
+    def get_data(self, werver,content, adj_col_list=''):
         wervers = self.werver_dict(content)
         data_page = bs(content, "html.parser")
         df = pd.read_html(content)
@@ -125,6 +125,11 @@ class backstage:
                         break
             i+=1
         werkdagen = 0
+        if adj_col_list:
+            for elem in adj_col_list:
+                if elem[0] == self.get_name(werver, wervers):
+                    print('here', werver)
+                    werkdagen -= int(elem[1])
         tot_eenmalig = 0
         bruto_don = 0
         tob = 0
@@ -224,7 +229,7 @@ class backstage:
         self.data.set_index(self.data.iloc[:,0],inplace=True)
         self.data.drop(self.data.columns[[0]], axis=1, inplace=True)
     
-    def run(self, wervers):
+    def run(self, wervers, adj_list=''):
         month = dt.datetime.today().month
         # month = 9
         if month < 10:
@@ -249,7 +254,7 @@ class backstage:
             except Exception as e:
                 print(e)
                 print(f'Request for {wervers[j]} failed ...')
-            data.append(self.get_data(ids[j], res.text))
+            data.append(self.get_data(ids[j], res.text, adj_list))
         self.data = pd.DataFrame(data)
         t1 = dt.datetime.now()
         print(f'{self.platform.capitalize()} data fetched in {t1-t0}!')
