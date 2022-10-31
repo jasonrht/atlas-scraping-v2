@@ -5,6 +5,21 @@ import pd_to_html
 import traceback
 import pandas as pd
 
+MONTH_DICT = {
+    1: 'Januari',
+    2: 'Februari',
+    3: 'Maart',
+    4: 'April',
+    5: 'Mei',
+    6: 'Juni',
+    7: 'Juli',
+    8: 'Augustus',
+    9: 'September',
+    10: 'Oktober',
+    11: 'November',
+    12: 'December'
+}
+
 def new_index(df):
     tobs = df.loc[:,"TOB"].values
     prev_tob = tobs[0]
@@ -40,18 +55,24 @@ def merge_data(df1, df2):
     print(merged_data)
     return merged_data
 
-def main():
+def main(backup=False):
     try: 
         print(f'***{"-"*40}***')
         today = dt.datetime.today()
         month = today.month
+        if backup:
+            month = month - 1
+            
         if month < 10:
             month = f'0{month}'
         else:
             month = str(month)
         YEAR = str(today.year)
         lb_client = gc.google_client()
-        lb_client.get_sheet('Huidige maand', 'Utrecht - Leaderboards')
+        if backup:
+            lb_client.get_sheet(f'{MONTH_DICT[month]} {today.year}', 'Utrecht - Leaderboards')
+        else:
+            lb_client.get_sheet('Huidige maand', 'Utrecht - Leaderboards')        
         name_client = gc.google_client()
         name_client.get_sheet('Namenlijst', 'Utrecht - Leaderboards')
         sp = name_client.get_names(2)
