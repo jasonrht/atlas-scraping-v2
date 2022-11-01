@@ -60,17 +60,20 @@ def main(backup=False):
         print(f'***{"-"*40}***')
         today = dt.datetime.today()
         month = today.month
+        lb_client = gc.google_client()
         if backup:
             month = month - 1
-            
+            # if today.day == 1:
+            #     lb_client.duplicate_sheet()
+            #     lb_client.change_name()
+
         if month < 10:
             month = f'0{month}'
         else:
             month = str(month)
         YEAR = str(today.year)
-        lb_client = gc.google_client()
         if backup:
-            lb_client.get_sheet(f'{MONTH_DICT[month]} {today.year}', 'Rotterdam HQ - Leaderboards')
+            lb_client.get_sheet(f'{MONTH_DICT[int(month)]} {today.year}', 'Rotterdam HQ - Leaderboards')
         else:
             lb_client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
         name_client = gc.google_client()
@@ -262,4 +265,4 @@ def main(backup=False):
         print('rotterdam.py - ERROR: Failed to run script ...')
 
 if __name__ == '__main__':
-    main()
+    main(backup=True)

@@ -70,7 +70,7 @@ def main(backup=False):
         YEAR = str(today.year)
         lb_client = gc.google_client()
         if backup:
-            lb_client.get_sheet(f'{MONTH_DICT[month]} {today.year}', 'Utrecht - Leaderboards')
+            lb_client.get_sheet(f'{MONTH_DICT[int(month)]} {today.year}', 'Utrecht - Leaderboards')
         else:
             lb_client.get_sheet('Huidige maand', 'Utrecht - Leaderboards')        
         name_client = gc.google_client()

@@ -118,7 +118,9 @@ if __name__ == '__main__':
     '''
     client = google_client()
     client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
-    client.get_stat_adjustments(97)
+    client.duplicate_sheet()
+    prev_month_client = google_client().get_sheet('')
+    client.change_name()
     # names = client.get_all_names()
     # print(names[0])
 
