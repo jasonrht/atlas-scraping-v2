@@ -87,13 +87,13 @@ def main(backup=False):
 
         # Sales Promotors
         sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp2)
+        sp_algemeen_backstage.run(sp2, backup=backup)
         sp_algemeen_data = sp_algemeen_backstage.data
         print(sp_algemeen_data)
         print('\n')
 
         sp_svhk_backstage = backstage.backstage('svhk-utr')
-        sp_svhk_backstage.run(sp2)
+        sp_svhk_backstage.run(sp2, backup=backup)
         sp_svhk_data = sp_svhk_backstage.data
         print(sp_svhk_data)
         print('\n')
@@ -108,13 +108,13 @@ def main(backup=False):
 
         # Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
-        p_algemeen_backstage.run(p)
+        p_algemeen_backstage.run(p, backup=backup)
         p_algemeen_data = p_algemeen_backstage.data
         print(p_algemeen_data)
         print('\n')
 
         p_svhk_backstage = backstage.backstage('svhk-utr')
-        p_svhk_backstage.run(p)
+        p_svhk_backstage.run(p, backup=backup)
         p_svhk_data = p_svhk_backstage.data
         print(p_svhk_data)
         print('\n')
@@ -129,13 +129,13 @@ def main(backup=False):
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
-        st_algemeen_backstage.run(st)
+        st_algemeen_backstage.run(st, backup=backup)
         st_algemeen_data = st_algemeen_backstage.data
         print(st_algemeen_data)
         print('\n')
 
         st_svhk_backstage = backstage.backstage('svhk-utr')
-        st_svhk_backstage.run(st)
+        st_svhk_backstage.run(st, backup=backup)
         st_svhk_data = st_svhk_backstage.data
         print(st_svhk_data)
         print('\n')
@@ -152,13 +152,13 @@ def main(backup=False):
 
         # Loondienst
         ld_algemeen_backstage = backstage.backstage('algemeen')
-        ld_algemeen_backstage.run(ld)
+        ld_algemeen_backstage.run(ld, backup=backup)
         ld_algemeen_data = ld_algemeen_backstage.data
         print(ld_algemeen_data)
         print('\n')
 
         ld_svhk_backstage = backstage.backstage('svhk-utr')
-        ld_svhk_backstage.run(ld)
+        ld_svhk_backstage.run(ld, backup=backup)
         ld_svhk_data = ld_svhk_backstage.data
         print(ld_svhk_data)
         print('\n')

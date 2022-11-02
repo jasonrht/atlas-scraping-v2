@@ -44,7 +44,7 @@ def main(backup=False):
 
         # Amsterdam
         amsterdam_backstage = backstage.backstage('algemeen')
-        amsterdam_backstage.run(wervers)
+        amsterdam_backstage.run(wervers, backup=backup)
         amsterdam_backstage.sort_data(['TOB'])
         amsterdam_data = amsterdam_backstage.data
         amsterdam_data.to_csv('./CSVs/amsterdam_data.csv')

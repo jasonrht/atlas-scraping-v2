@@ -228,9 +228,10 @@ class backstage:
         self.data.set_index(self.data.iloc[:,0],inplace=True)
         self.data.drop(self.data.columns[[0]], axis=1, inplace=True)
     
-    def run(self, wervers, adj_list=''):
+    def run(self, wervers, adj_list='', backup=False):
         month = dt.datetime.today().month
-        # month = 9
+        if backup:
+            month = month - 1
         if month < 10:
             month = '0' + str(month)
         month = str(month)

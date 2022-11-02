@@ -45,7 +45,7 @@ def main(backup=False):
 
         # Apeldoorn
         apeldoorn_backstage = backstage.backstage('algemeen')
-        apeldoorn_backstage.run(wervers)
+        apeldoorn_backstage.run(wervers, backup=backup)
         apeldoorn_backstage.sort_data(['TOB'])
         apeldoorn_data = apeldoorn_backstage.data
         apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
@@ -55,7 +55,7 @@ def main(backup=False):
         # apd_pd2html.main('apeldoorn_data')
 
         apeldoorn_svhk_backstage = backstage.backstage('svhk-apd')
-        apeldoorn_svhk_backstage.run(svhk_wervers)
+        apeldoorn_svhk_backstage.run(svhk_wervers, backup=backup)
         apeldoorn_svhk_backstage.sort_data(['TOB'])
         apeldoorn_svhk_data = apeldoorn_svhk_backstage.data
         apeldoorn_svhk_data.to_csv('./CSVs/apeldoorn_svhk_data.csv')

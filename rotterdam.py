@@ -66,7 +66,6 @@ def main(backup=False):
             # if today.day == 1:
             #     lb_client.duplicate_sheet()
             #     lb_client.change_name()
-
         if month < 10:
             month = f'0{month}'
         else:
@@ -93,14 +92,14 @@ def main(backup=False):
         ### Rotterdam ZZP ###
         # Sales Professionals+
         sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp2, adj_list)
+        sp_algemeen_backstage.run(sp2, adj_list, backup=backup)
         sp_algemeen_data = sp_algemeen_backstage.data
         print(sp_algemeen_data)
         print('\n')
 
 
         sp_svhk_backstage = backstage.backstage('svhk')
-        sp_svhk_backstage.run(sp2)
+        sp_svhk_backstage.run(sp2, backup=backup)
         sp_svhk_data = sp_svhk_backstage.data
         print(sp_svhk_data)
         print('\n')
@@ -115,13 +114,13 @@ def main(backup=False):
 
         # Sales Promotors
         p_algemeen_backstage = backstage.backstage('algemeen')
-        p_algemeen_backstage.run(p, adj_list)
+        p_algemeen_backstage.run(p, adj_list, backup=backup)
         p_algemeen_data = p_algemeen_backstage.data
         print(p_algemeen_data)
         print('\n')
 
         p_svhk_backstage = backstage.backstage('svhk')
-        p_svhk_backstage.run(p)
+        p_svhk_backstage.run(p, backup=backup)
         p_svhk_data = p_svhk_backstage.data
         print(p_svhk_data)
         print('\n')
@@ -136,13 +135,13 @@ def main(backup=False):
 
         # Shark Tank
         st_algemeen_backstage = backstage.backstage('algemeen')
-        st_algemeen_backstage.run(st, adj_list)
+        st_algemeen_backstage.run(st, adj_list, backup=backup)
         st_algemeen_data = st_algemeen_backstage.data
         print(st_algemeen_data)
         print('\n')
 
         st_svhk_backstage = backstage.backstage('svhk')
-        st_svhk_backstage.run(st)
+        st_svhk_backstage.run(st, backup=backup)
         st_svhk_data = st_svhk_backstage.data
         print(st_svhk_data)
         print('\n')
@@ -157,7 +156,7 @@ def main(backup=False):
 
         # Loondienst
         loondienst_backstage = backstage.backstage('algemeen')
-        loondienst_backstage.run(loondienst)
+        loondienst_backstage.run(loondienst, backup=backup)
         loondienst_backstage.sort_data(['TOB'])
         loondienst_data = loondienst_backstage.data
         loondienst_data.to_csv('./CSVs/loondienst_data.csv')
@@ -265,4 +264,4 @@ def main(backup=False):
         print('rotterdam.py - ERROR: Failed to run script ...')
 
 if __name__ == '__main__':
-    main(backup=True)
+    main()

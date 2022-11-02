@@ -44,7 +44,7 @@ def main(backup=False):
 
         # Utrecht
         nijmegen_backstage = backstage.backstage('algemeen')
-        nijmegen_backstage.run(wervers)
+        nijmegen_backstage.run(wervers, backup=backup)
         nijmegen_backstage.sort_data(['TOB'])
         nijmegen_data = nijmegen_backstage.data
         nijmegen_data.to_csv('./CSVs/nijmegen_data.csv')
