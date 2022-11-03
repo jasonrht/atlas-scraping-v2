@@ -128,7 +128,7 @@ class backstage:
         if adj_col_list:
             for elem in adj_col_list:
                 if elem[0] == self.get_name(werver, wervers):
-                    werkdagen -= int(elem[1])
+                    werkdagen += int(elem[1])
         tot_eenmalig = 0
         bruto_don = 0
         tob = 0
