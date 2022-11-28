@@ -91,80 +91,84 @@ def main(backup=False):
 
         ### Rotterdam ZZP ###
         # Sales Professionals+
-        sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp2, adj_list, backup=backup)
-        sp_algemeen_data = sp_algemeen_backstage.data
-        print(sp_algemeen_data)
-        print('\n')
+        if len(sp) > 0:
+            sp_algemeen_backstage = backstage.backstage('algemeen')
+            sp_algemeen_backstage.run(sp2, adj_list, backup=backup)
+            sp_algemeen_data = sp_algemeen_backstage.data
+            print(sp_algemeen_data)
+            print('\n')
 
 
-        sp_svhk_backstage = backstage.backstage('svhk')
-        sp_svhk_backstage.run(sp2, backup=backup)
-        sp_svhk_data = sp_svhk_backstage.data
-        print(sp_svhk_data)
-        print('\n')
+            sp_svhk_backstage = backstage.backstage('svhk')
+            sp_svhk_backstage.run(sp2, backup=backup)
+            sp_svhk_data = sp_svhk_backstage.data
+            print(sp_svhk_data)
+            print('\n')
 
-        sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
-        sp_data.set_index(sp_data.iloc[:,0],inplace=True)
-        sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
-        sp_data.to_csv('./CSVs/sp_data.csv')
-        # sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
-        # sp_pd2html.main('sp_data')
-        lb_client.to_spreadsheet(sp_data, 'B5')
+            sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
+            sp_data.set_index(sp_data.iloc[:,0],inplace=True)
+            sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
+            sp_data.to_csv('./CSVs/sp_data.csv')
+            # sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
+            # sp_pd2html.main('sp_data')
+            lb_client.to_spreadsheet(sp_data, 'B5')
 
         # Sales Promotors
-        p_algemeen_backstage = backstage.backstage('algemeen')
-        p_algemeen_backstage.run(p, adj_list, backup=backup)
-        p_algemeen_data = p_algemeen_backstage.data
-        print(p_algemeen_data)
-        print('\n')
+        if len(p) > 0:
+            p_algemeen_backstage = backstage.backstage('algemeen')
+            p_algemeen_backstage.run(p, adj_list, backup=backup)
+            p_algemeen_data = p_algemeen_backstage.data
+            print(p_algemeen_data)
+            print('\n')
 
-        p_svhk_backstage = backstage.backstage('svhk')
-        p_svhk_backstage.run(p, backup=backup)
-        p_svhk_data = p_svhk_backstage.data
-        print(p_svhk_data)
-        print('\n')
+            p_svhk_backstage = backstage.backstage('svhk')
+            p_svhk_backstage.run(p, backup=backup)
+            p_svhk_data = p_svhk_backstage.data
+            print(p_svhk_data)
+            print('\n')
 
-        p_data = merge_data(p_algemeen_data, p_svhk_data)
-        p_data.set_index(p_data.iloc[:,0],inplace=True)
-        p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
-        p_data.to_csv('./CSVs/p_data.csv')
-        # p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
-        # p_pd2html.main('p_data')
-        lb_client.to_spreadsheet(p_data, 'B59')
+            p_data = merge_data(p_algemeen_data, p_svhk_data)
+            p_data.set_index(p_data.iloc[:,0],inplace=True)
+            p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
+            p_data.to_csv('./CSVs/p_data.csv')
+            # p_pd2html = pd_to_html.pd_to_html('p', 'Promotors')
+            # p_pd2html.main('p_data')
+            lb_client.to_spreadsheet(p_data, 'B59')
 
         # Shark Tank
-        st_algemeen_backstage = backstage.backstage('algemeen')
-        st_algemeen_backstage.run(st, adj_list, backup=backup)
-        st_algemeen_data = st_algemeen_backstage.data
-        print(st_algemeen_data)
-        print('\n')
+        if len(st) > 0:
+            st_algemeen_backstage = backstage.backstage('algemeen')
+            st_algemeen_backstage.run(st, adj_list, backup=backup)
+            st_algemeen_data = st_algemeen_backstage.data
+            print(st_algemeen_data)
+            print('\n')
 
-        st_svhk_backstage = backstage.backstage('svhk')
-        st_svhk_backstage.run(st, backup=backup)
-        st_svhk_data = st_svhk_backstage.data
-        print(st_svhk_data)
-        print('\n')
+            st_svhk_backstage = backstage.backstage('svhk')
+            st_svhk_backstage.run(st, backup=backup)
+            st_svhk_data = st_svhk_backstage.data
+            print(st_svhk_data)
+            print('\n')
 
-        st_data = merge_data(st_algemeen_data, st_svhk_data)
-        st_data.set_index(st_data.iloc[:,0],inplace=True)
-        st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
-        st_data.to_csv('./CSVs/st_data.csv')
-        # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
-        # st_pd2html.main('st_data')
-        lb_client.to_spreadsheet(st_data, 'B73')
+            st_data = merge_data(st_algemeen_data, st_svhk_data)
+            st_data.set_index(st_data.iloc[:,0],inplace=True)
+            st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
+            st_data.to_csv('./CSVs/st_data.csv')
+            # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+            # st_pd2html.main('st_data')
+            lb_client.to_spreadsheet(st_data, 'B73')
 
         # Loondienst
-        loondienst_backstage = backstage.backstage('algemeen')
-        loondienst_backstage.run(loondienst, backup=backup)
-        loondienst_backstage.sort_data(['TOB'])
-        loondienst_data = loondienst_backstage.data
-        loondienst_data.to_csv('./CSVs/loondienst_data.csv')
-        # ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
-        # ld_pd2html.main('loondienst_data')
-        lb_client.to_spreadsheet(loondienst_data, 'L5')
-        print(loondienst_data)
-        print('\n')
+        if len(loondienst) > 0:
+            loondienst_backstage = backstage.backstage('algemeen')
+            loondienst_backstage.run(loondienst, backup=backup)
+            loondienst_backstage.sort_data(['TOB'])
+            loondienst_data = loondienst_backstage.data
+            loondienst_data.to_csv('./CSVs/loondienst_data.csv')
+            # ld_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
+            # ld_pd2html.main('loondienst_data')
+            lb_client.to_spreadsheet(loondienst_data, 'L5')
+            print(loondienst_data)
+            print('\n')
 
     #     # Merge all HTMLs
     #     tot_html = '''

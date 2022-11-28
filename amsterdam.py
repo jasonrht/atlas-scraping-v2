@@ -43,11 +43,12 @@ def main(backup=False):
         wervers = name_client.get_names(2)
 
         # Amsterdam
-        amsterdam_backstage = backstage.backstage('algemeen')
-        amsterdam_backstage.run(wervers, backup=backup)
-        amsterdam_backstage.sort_data(['TOB'])
-        amsterdam_data = amsterdam_backstage.data
-        amsterdam_data.to_csv('./CSVs/amsterdam_data.csv')
+        if len(wervers) > 0:
+            amsterdam_backstage = backstage.backstage('algemeen')
+            amsterdam_backstage.run(wervers, backup=backup)
+            amsterdam_backstage.sort_data(['TOB'])
+            amsterdam_data = amsterdam_backstage.data
+            amsterdam_data.to_csv('./CSVs/amsterdam_data.csv')
         # ams_pd2html = pd_to_html.pd_to_html('algemeen', 'Amsterdam')
         # ams_pd2html.main('amsterdam_data')
 
@@ -140,7 +141,7 @@ def main(backup=False):
     #     with open('./HTMLs/ams_tot.html', 'w') as w_file:
     #         w_file.write(html)
     #     w_file.close()
-        lb_client.to_spreadsheet(amsterdam_data, 'B4')
+            lb_client.to_spreadsheet(amsterdam_data, 'B4')
     
         print(amsterdam_data)
         print('\n')

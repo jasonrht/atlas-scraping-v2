@@ -43,11 +43,12 @@ def main(backup=False):
         wervers = name_client.get_names(2)
 
         # Utrecht
-        nijmegen_backstage = backstage.backstage('algemeen')
-        nijmegen_backstage.run(wervers, backup=backup)
-        nijmegen_backstage.sort_data(['TOB'])
-        nijmegen_data = nijmegen_backstage.data
-        nijmegen_data.to_csv('./CSVs/nijmegen_data.csv')
+        if len(wervers) > 0:
+            nijmegen_backstage = backstage.backstage('algemeen')
+            nijmegen_backstage.run(wervers, backup=backup)
+            nijmegen_backstage.sort_data(['TOB'])
+            nijmegen_data = nijmegen_backstage.data
+            nijmegen_data.to_csv('./CSVs/nijmegen_data.csv')
 
     #     nmg_pd2html = pd_to_html.pd_to_html('algemeen', 'Nijmegen')
     #     nmg_pd2html.main('nijmegen_data')

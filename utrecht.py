@@ -86,94 +86,98 @@ def main(backup=False):
                 sp2.append(name)
 
         # Sales Promotors
-        sp_algemeen_backstage = backstage.backstage('algemeen')
-        sp_algemeen_backstage.run(sp2, backup=backup)
-        sp_algemeen_data = sp_algemeen_backstage.data
-        print(sp_algemeen_data)
-        print('\n')
+        if len(sp) > 0:
+            sp_algemeen_backstage = backstage.backstage('algemeen')
+            sp_algemeen_backstage.run(sp2, backup=backup)
+            sp_algemeen_data = sp_algemeen_backstage.data
+            print(sp_algemeen_data)
+            print('\n')
 
-        sp_svhk_backstage = backstage.backstage('svhk-utr')
-        sp_svhk_backstage.run(sp2, backup=backup)
-        sp_svhk_data = sp_svhk_backstage.data
-        print(sp_svhk_data)
-        print('\n')
+            sp_svhk_backstage = backstage.backstage('svhk-utr')
+            sp_svhk_backstage.run(sp2, backup=backup)
+            sp_svhk_data = sp_svhk_backstage.data
+            print(sp_svhk_data)
+            print('\n')
 
-        sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
-        sp_data.set_index(sp_data.iloc[:,0],inplace=True)
-        sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
-        sp_data.to_csv('./CSVs/sp_utr_data.csv')
-        # sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
-        # sp_pd2html.main('sp_utr_data')
-        lb_client.to_spreadsheet(sp_data, 'B5')
+            sp_data = merge_data(sp_algemeen_data, sp_svhk_data)
+            sp_data.set_index(sp_data.iloc[:,0],inplace=True)
+            sp_data.drop(sp_data.columns[[0]], axis=1, inplace=True)
+            sp_data.to_csv('./CSVs/sp_utr_data.csv')
+            # sp_pd2html = pd_to_html.pd_to_html('sp', 'Sales Professionals+')
+            # sp_pd2html.main('sp_utr_data')
+            lb_client.to_spreadsheet(sp_data, 'B5')
 
         # Promotors
-        p_algemeen_backstage = backstage.backstage('algemeen')
-        p_algemeen_backstage.run(p, backup=backup)
-        p_algemeen_data = p_algemeen_backstage.data
-        print(p_algemeen_data)
-        print('\n')
+        if len(p) > 0:
+            p_algemeen_backstage = backstage.backstage('algemeen')
+            p_algemeen_backstage.run(p, backup=backup)
+            p_algemeen_data = p_algemeen_backstage.data
+            print(p_algemeen_data)
+            print('\n')
 
-        p_svhk_backstage = backstage.backstage('svhk-utr')
-        p_svhk_backstage.run(p, backup=backup)
-        p_svhk_data = p_svhk_backstage.data
-        print(p_svhk_data)
-        print('\n')
+            p_svhk_backstage = backstage.backstage('svhk-utr')
+            p_svhk_backstage.run(p, backup=backup)
+            p_svhk_data = p_svhk_backstage.data
+            print(p_svhk_data)
+            print('\n')
 
-        p_data = merge_data(p_algemeen_data, p_svhk_data)
-        p_data.set_index(p_data.iloc[:,0],inplace=True)
-        p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
-        p_data.to_csv('./CSVs/p_utr_data.csv')
-        # p_pd2html = pd_to_html.pd_to_html('p', 'Sales Professionals+')
-        # p_pd2html.main('p_utr_data')
-        lb_client.to_spreadsheet(p_data, 'B39')
+            p_data = merge_data(p_algemeen_data, p_svhk_data)
+            p_data.set_index(p_data.iloc[:,0],inplace=True)
+            p_data.drop(p_data.columns[[0]], axis=1, inplace=True)
+            p_data.to_csv('./CSVs/p_utr_data.csv')
+            # p_pd2html = pd_to_html.pd_to_html('p', 'Sales Professionals+')
+            # p_pd2html.main('p_utr_data')
+            lb_client.to_spreadsheet(p_data, 'B39')
 
         # Shark Tank
-        st_algemeen_backstage = backstage.backstage('algemeen')
-        st_algemeen_backstage.run(st, backup=backup)
-        st_algemeen_data = st_algemeen_backstage.data
-        print(st_algemeen_data)
-        print('\n')
+        if len(st) > 0:
+            st_algemeen_backstage = backstage.backstage('algemeen')
+            st_algemeen_backstage.run(st, backup=backup)
+            st_algemeen_data = st_algemeen_backstage.data
+            print(st_algemeen_data)
+            print('\n')
 
-        st_svhk_backstage = backstage.backstage('svhk-utr')
-        st_svhk_backstage.run(st, backup=backup)
-        st_svhk_data = st_svhk_backstage.data
-        print(st_svhk_data)
-        print('\n')
+            st_svhk_backstage = backstage.backstage('svhk-utr')
+            st_svhk_backstage.run(st, backup=backup)
+            st_svhk_data = st_svhk_backstage.data
+            print(st_svhk_data)
+            print('\n')
 
-        st_data = merge_data(st_algemeen_data, st_svhk_data)
-        st_data.set_index(st_data.iloc[:,0],inplace=True)
-        st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
-        st_data.to_csv('./CSVs/st_utr_data.csv')
+            st_data = merge_data(st_algemeen_data, st_svhk_data)
+            st_data.set_index(st_data.iloc[:,0],inplace=True)
+            st_data.drop(st_data.columns[[0]], axis=1, inplace=True)
+            st_data.to_csv('./CSVs/st_utr_data.csv')
 
-        # st_data.to_csv('./CSVs/st_utr_data.csv')
-        # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
-        # st_pd2html.main('st_utr_data')
-        lb_client.to_spreadsheet(st_data, 'B53')
+            # st_data.to_csv('./CSVs/st_utr_data.csv')
+            # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+            # st_pd2html.main('st_utr_data')
+            lb_client.to_spreadsheet(st_data, 'B53')
 
         # Loondienst
-        ld_algemeen_backstage = backstage.backstage('algemeen')
-        ld_algemeen_backstage.run(ld, backup=backup)
-        ld_algemeen_data = ld_algemeen_backstage.data
-        print(ld_algemeen_data)
-        print('\n')
+        if len(ld) > 0:
+            ld_algemeen_backstage = backstage.backstage('algemeen')
+            ld_algemeen_backstage.run(ld, backup=backup)
+            ld_algemeen_data = ld_algemeen_backstage.data
+            print(ld_algemeen_data)
+            print('\n')
 
-        ld_svhk_backstage = backstage.backstage('svhk-utr')
-        ld_svhk_backstage.run(ld, backup=backup)
-        ld_svhk_data = ld_svhk_backstage.data
-        print(ld_svhk_data)
-        print('\n')
+            ld_svhk_backstage = backstage.backstage('svhk-utr')
+            ld_svhk_backstage.run(ld, backup=backup)
+            ld_svhk_data = ld_svhk_backstage.data
+            print(ld_svhk_data)
+            print('\n')
 
-        ld_data = merge_data(ld_algemeen_data, ld_svhk_data)
-        ld_data.set_index(ld_data.iloc[:,0],inplace=True)
-        ld_data.drop(ld_data.columns[[0]], axis=1, inplace=True)
-        ld_data.to_csv('./CSVs/ld_utr_data.csv')
+            ld_data = merge_data(ld_algemeen_data, ld_svhk_data)
+            ld_data.set_index(ld_data.iloc[:,0],inplace=True)
+            ld_data.drop(ld_data.columns[[0]], axis=1, inplace=True)
+            ld_data.to_csv('./CSVs/ld_utr_data.csv')
 
-        # st_data.to_csv('./CSVs/st_utr_data.csv')
-        # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
-        # st_pd2html.main('st_utr_data')
-        lb_client.to_spreadsheet(ld_data, 'L5')
+            # st_data.to_csv('./CSVs/st_utr_data.csv')
+            # st_pd2html = pd_to_html.pd_to_html('st', 'Shark Tank')
+            # st_pd2html.main('st_utr_data')
+            lb_client.to_spreadsheet(ld_data, 'L5')
 
-        print('\n')
+            print('\n')
     except Exception as e:
         traceback.print_exc()
         print('utrecht.py - ERROR: Failed to run script ...')

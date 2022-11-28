@@ -86,7 +86,6 @@ class backstage:
             wervers_ids.append(werver_id.get("value"))
             wervers[wervers_list[i]] = wervers_ids[i]
             i+=1
-        
         return wervers
     
     def get_name(self, id, wervers):

@@ -44,23 +44,25 @@ def main(backup=False):
         svhk_wervers = name_client.get_names(3)
 
         # Apeldoorn
-        apeldoorn_backstage = backstage.backstage('algemeen')
-        apeldoorn_backstage.run(wervers, backup=backup)
-        apeldoorn_backstage.sort_data(['TOB'])
-        apeldoorn_data = apeldoorn_backstage.data
-        apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
+        if len(wervers) > 0:
+            apeldoorn_backstage = backstage.backstage('algemeen')
+            apeldoorn_backstage.run(wervers, backup=backup)
+            apeldoorn_backstage.sort_data(['TOB'])
+            apeldoorn_data = apeldoorn_backstage.data
+            apeldoorn_data.to_csv('./CSVs/apeldoorn_data.csv')
 
-        lb_client.to_spreadsheet(apeldoorn_data, 'B5')
-        # apd_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
-        # apd_pd2html.main('apeldoorn_data')
+            lb_client.to_spreadsheet(apeldoorn_data, 'B5')
+            # apd_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
+            # apd_pd2html.main('apeldoorn_data')
+        
+        if len(svhk_wervers) > 0:
+            apeldoorn_svhk_backstage = backstage.backstage('svhk-apd')
+            apeldoorn_svhk_backstage.run(svhk_wervers, backup=backup)
+            apeldoorn_svhk_backstage.sort_data(['TOB'])
+            apeldoorn_svhk_data = apeldoorn_svhk_backstage.data
+            apeldoorn_svhk_data.to_csv('./CSVs/apeldoorn_svhk_data.csv')
 
-        apeldoorn_svhk_backstage = backstage.backstage('svhk-apd')
-        apeldoorn_svhk_backstage.run(svhk_wervers, backup=backup)
-        apeldoorn_svhk_backstage.sort_data(['TOB'])
-        apeldoorn_svhk_data = apeldoorn_svhk_backstage.data
-        apeldoorn_svhk_data.to_csv('./CSVs/apeldoorn_svhk_data.csv')
-
-        lb_client.to_spreadsheet(apeldoorn_svhk_data, 'L5')
+            lb_client.to_spreadsheet(apeldoorn_svhk_data, 'L5')
         # apd_svhk_pd2html = pd_to_html.pd_to_html('algemeen', 'Loondienst')
         # apd_svhk_pd2html.main('apeldoorn_svhk_data')
 
