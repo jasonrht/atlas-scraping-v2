@@ -83,6 +83,8 @@ class google_client:
             prev_month = dt.datetime.today().month - 1
             prev_month_name = MONTH_DICT[prev_month]
             current_year = dt.datetime.today().year
+            if prev_month == 11:
+                current_year += 1
             self.sheet.update_title(f'{prev_month_name} {current_year}')
             print('Name changed successfully !')
         except Exception as e:
@@ -119,8 +121,10 @@ if __name__ == '__main__':
     client = google_client()
     client.get_sheet('Huidige maand', 'Rotterdam HQ - Leaderboards')
     client.duplicate_sheet()
-    prev_month_client = google_client().get_sheet('')
+    client.get_sheet('Copy of Huidige maand', 'Rotterdam HQ - Leaderboards')
     client.change_name()
+    # prev_month_client = google_client().get_sheet('')
+    # client.change_name()
     # names = client.get_all_names()
     # print(names[0])
 
