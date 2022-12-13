@@ -119,8 +119,12 @@ class backstage:
                     tds = tr.find_all("td", attrs={"class":"number"})
                     tot = tds[0].text.replace("M","").replace("⨉","").replace(",",".").strip()
                     sal = tds[3].text.replace("€\xa0","").replace(",",".").strip()
-                    if not(tot=="") and not(sal=="") and float(tot)<=15:
-                        factor = float(sal)/float(tot)
+                    if not(tot=="") and not(sal==""):
+                        tot = float(tot)
+                        if(tot>15):
+                            tot = 15
+                        factor = float(sal)/tot
+                        print(factor)
                         break
             i+=1
         werkdagen = 0
